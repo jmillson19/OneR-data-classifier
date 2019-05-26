@@ -1,0 +1,51 @@
+		/*for(int i = minLoc; i <= 1+ minLoc + dataSet.getNumOptionsForElement(minAttr); i++) {
+			System.out.println("max loc: " + maxLoc[i]);
+			String split[] = maxLoc[i].split(",");
+			int classVal = Integer.parseInt(split[1]);
+			int attrVal = Integer.parseInt(split[0]);
+			String rule = attributeOptions.get(attrVal) + ":" + classOptions.get(classVal); 
+			dataSet.addRule(rule);
+			System.out.println(rule);
+			System.out.println(i);
+		}*/
+		
+				/*for(int i = 0; i < dataSet.getNumOptionsForElement(minAttr); i++) {
+			int max = Integer.MIN_VALUE;
+			int xloc = 0, yloc = 0;
+			for(int j = 0; j < dataSet.getNumOptionsForElement(numAttributes); j++) {
+				if(ruleArray[i][j] > max) {
+					max = ruleArray[i][j];
+					xloc = i;
+					yloc = j;
+				}
+				String rule = attributeOptions.get(xloc) + ":" + classOptions.get(yloc); 
+				dataSet.addRule(rule);
+				System.out.println(rule);
+			}
+			
+		}*/
+			
+		int[][] ruleArray = new int[numAttributes][dataSet.getNumOptionsForElement(minAttr)];
+		for(int i = 0; i < dataSet.getNumOptionsForElement(numAttributes); i++) {
+			for(int j = minLoc; j < minLoc + dataSet.getNumOptionsForElement(minAttr); j++) {
+				ruleArray[i][j-minLoc] = correct[i][j];
+			}
+		}
+		
+				int maximum = 0;
+		for(int j = 0; j < dataSet.getNumOptionsForElement(minAttr); j++) {
+			int xloc = 0, yloc = 0;
+			for(int k = 0; k < dataSet.getNumOptionsForElement(numAttributes); k++) {
+				//maxLoc[j + count] = Integer.toString(j) + "," + Integer.toString(k);
+				int x = correct[k][j];
+				if(maximum < x) {
+					xloc = k;
+					yloc = j;
+					maximum = x;
+				}
+			}
+			String rule = attributeOptions.get(yloc) + ":" + classOptions.get(xloc); 
+			dataSet.addRule(rule);
+			System.out.println(rule);
+			
+		}
